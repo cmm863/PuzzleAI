@@ -42,10 +42,13 @@ public class Game {
 		Tile t;
 		String[] columns = fileString.split(" ");
 		
+		// For each column in the row
 		for(int i = 0; i < columns.length; i++) {
 			System.out.println(columns[i]);
 			p = new Point(i, rowNumber-1);
 			t = new Tile(p, columns[i].charAt(0));
+			
+			// Add to map
 			map.put(p, t);
 		}
 	}
@@ -63,6 +66,18 @@ public class Game {
 		ret += "Game class instantiated.\n";
 		ret += "Colors: " + String.valueOf(this.colors) + "\n";
 		ret += "Size: " + String.valueOf(this.n) + "\n";
+		return ret;
+	}
+	
+	public String debugMap() {
+		String ret = "";
+		for(int j = 0; j < this.n; j++) {
+			for(int i = 0; i < this.n; i++) {
+				ret += map.get(new Point(i, j)).getDebugChar() + " ";
+			}
+			ret += "\n";
+		}
+		
 		return ret;
 	}
 }

@@ -31,6 +31,10 @@ public class Driver {
 				lineCount++;
 			}
 			
+			// Print map
+			System.out.println("Map:");
+			System.out.println(g.debugMap());
+			
 			// Close BufferedReader
 			bufferedReader.close();
 		} catch(Exception e) {
