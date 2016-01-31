@@ -1,12 +1,16 @@
+import java.awt.Point;
+import java.util.HashMap;
 
 public class Game {
 	private int colors;		// Number of colors in game
 	private int n;			// NxN game board
+	private HashMap<Point, Tile> map; // Board
 	
 	public Game() {
 		// Load information
 		this.colors = 0;
 		this.n = 0;
+		this.map = new HashMap<Point, Tile>();
 		
 		// Debug information
 		System.out.println(this.initializationString());
@@ -16,6 +20,7 @@ public class Game {
 		// Load information
 		this.colors = colors;
 		this.n = n;
+		this.map = new HashMap<Point, Tile>();
 		
 		// Debug information
 		System.out.println(this.initializationString());
@@ -26,9 +31,23 @@ public class Game {
 		String[] info = fileString.split(" ");
 		this.n = Integer.valueOf(info[0]);
 		this.colors = Integer.valueOf(info[1]);
+		this.map = new HashMap<Point, Tile>();
 		
 		// Debug information
 		System.out.println(this.initializationString());
+	}
+	
+	public void loadRow(String fileString, int rowNumber) {
+		Point p;
+		Tile t;
+		String[] columns = fileString.split(" ");
+		
+		for(int i = 0; i < columns.length; i++) {
+			System.out.println(columns[i]);
+			p = new Point(i, rowNumber-1);
+			t = new Tile(p, columns[i].charAt(0));
+			map.put(p, t);
+		}
 	}
 	
 	public int getN() {

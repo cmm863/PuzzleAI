@@ -13,17 +13,20 @@ public class Driver {
 		// Line count
 		int lineCount = 0;
 		
+		// Game
+		Game g = new Game();
+		
 		try {
+			// File read from file
 			FileReader fileReader = new FileReader(fileName);
 			BufferedReader bufferedReader = new BufferedReader(fileReader);
 			
-			Game g;
 			// For each line
 			while((line = bufferedReader.readLine()) != null) {
 				if(lineCount == 0) {
 					g = new Game(line); 
 				} else {
-					System.out.println(line);
+					g.loadRow(line, lineCount);
 				}
 				lineCount++;
 			}
