@@ -10,13 +10,22 @@ public class Driver {
 		// The current line that is referenced
 		String line = null;
 		
+		// Line count
+		int lineCount = 0;
+		
 		try {
 			FileReader fileReader = new FileReader(fileName);
 			BufferedReader bufferedReader = new BufferedReader(fileReader);
 			
+			Game g;
 			// For each line
 			while((line = bufferedReader.readLine()) != null) {
-				System.out.println(line);
+				if(lineCount == 0) {
+					g = new Game(line); 
+				} else {
+					System.out.println(line);
+				}
+				lineCount++;
 			}
 			
 			// Close BufferedReader
