@@ -108,4 +108,10 @@ public class Game {
 		
 		return ret;
 	}
+	
+	public void calculatePaths() {
+		for(Color c : this.colorMap.values()) {
+			Search.BFTS(this.map, c);
+		}
+	}
 }

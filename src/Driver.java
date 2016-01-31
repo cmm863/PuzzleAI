@@ -39,6 +39,9 @@ public class Driver {
 			System.out.println("Colors:");
 			System.out.println(g.debugColors());
 			
+			// Calculate paths
+			g.calculatePaths();
+			
 			// Close BufferedReader
 			bufferedReader.close();
 		} catch(Exception e) {
