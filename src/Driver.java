@@ -35,6 +35,10 @@ public class Driver {
 			System.out.println("Map:");
 			System.out.println(g.debugMap());
 			
+			// Print colors
+			System.out.println("Colors:");
+			System.out.println(g.debugColors());
+			
 			// Close BufferedReader
 			bufferedReader.close();
 		} catch(Exception e) {
