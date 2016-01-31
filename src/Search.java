@@ -8,7 +8,7 @@ public class Search {
 	public static Vector<Point> BFTS(HashMap<Point, Tile> map, Color c) {
 		Vector<Point> ret = new Vector<Point>();
 		LinkedList<Point> frontier = new LinkedList<Point>();
-		HashSet<Point> explored = new HashSet<Point>();
+		
 		
 		
 		return ret;
