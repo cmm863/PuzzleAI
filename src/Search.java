@@ -24,7 +24,6 @@ public class Search {
 			currentNode = currentNode.getPrev();
 		}
 		
-		ret.add(c.getStart());
 		return ret;
 	}
 	

@@ -1,4 +1,5 @@
 import java.awt.Point;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Vector;
 
@@ -8,6 +9,7 @@ public class Game {
 	private int actions;	// Number of actions for solution
 	private HashMap<Point, Tile> map; // Board
 	private HashMap<Character, Color> colorMap; // Colors
+	private HashMap<Color, Vector<Point>> paths;
 	
 	public Game() {
 		// Load information
@@ -16,6 +18,7 @@ public class Game {
 		this.actions = 0;
 		this.map = new HashMap<Point, Tile>();
 		this.colorMap = new HashMap<Character, Color>();
+		this.paths = new HashMap<Color, Vector<Point>>();
 		
 		// Debug information
 		if(Driver.debugInfo) {
@@ -30,6 +33,7 @@ public class Game {
 		this.actions = 0;
 		this.map = new HashMap<Point, Tile>();
 		this.colorMap = new HashMap<Character, Color>();
+		this.paths = new HashMap<Color, Vector<Point>>();
 		
 		// Debug information
 		if(Driver.debugInfo) {
@@ -45,6 +49,7 @@ public class Game {
 		this.actions = 0;
 		this.map = new HashMap<Point, Tile>();
 		this.colorMap = new HashMap<Character, Color>();
+		this.paths = new HashMap<Color, Vector<Point>>();
 		
 		// Debug information
 		if(Driver.debugInfo) {
@@ -122,6 +127,7 @@ public class Game {
 	public void calculatePaths() {
 		for(Color c : this.colorMap.values()) {
 			Vector<Point> path = Search.BFTS(this.map, c);
+			Collections.reverse(path);
 			if(Driver.debugInfo) {
 				System.out.println(c.getDebugCharacter());
 			}
@@ -132,14 +138,27 @@ public class Game {
 				this.map.get(p).setDebugChar(c.getDebugCharacter());
 				this.actions++; // Counts each node in the path
 			}
-			this.actions--; // Take one off per color for the start
 			if(Driver.debugInfo) {
 				System.out.println();
 			}
+			
+			paths.put(c, path);
 		}
 	}
 	
 	public int getActions() {
 		return this.actions;
+	}
+	
+	public String pathsFormatted() {
+		String ret = "";
+		for(Color c : this.colorMap.values()) {
+			for(Point p : this.paths.get(c)) {
+				ret += c.getDebugCharacter() + " " + (int) p.getX() + " " + (int) p.getY() + ",";
+			}
+		}
+		
+		
+		return ret;
 	}
 }

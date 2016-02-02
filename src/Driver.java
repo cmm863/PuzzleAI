@@ -1,5 +1,10 @@
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileReader;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 
 public class Driver {
 	public static boolean debugInfo;
@@ -63,13 +68,61 @@ public class Driver {
 			System.out.println(e);
 		}
 		
+		// Write to file
+		String outputFileName = args[0].substring(0, args[0].length() - 4) + "_solution.txt";
+		File fout = new File(outputFileName);
+		FileOutputStream fos = null;
+		try {
+			fos = new FileOutputStream(fout);
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos));
+		
 		// Calculate time
 		endTime = System.currentTimeMillis();
 		elapsedTime = endTime - startTime;
 		System.out.println(elapsedTime);
+		try {
+			bw.write(String.valueOf(elapsedTime));
+			bw.newLine();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		// Print actions
 		System.out.println(g.getActions());
+		try {
+			bw.write(String.valueOf(g.getActions()));
+			bw.newLine();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		// Print paths
+		System.out.println(g.pathsFormatted());
+		try {
+			bw.write(String.valueOf(g.pathsFormatted()));
+			bw.newLine();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		// Print map
+		System.out.println(g.debugMap());
+		try {
+			bw.write(String.valueOf(g.debugMap()));
+			bw.newLine();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		try {
+			bw.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }
