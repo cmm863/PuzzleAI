@@ -10,7 +10,9 @@ public class Color {
 		this.c = 'x';
 		
 		// Debug information
-		System.out.println(this.debugString(true));
+		if(Driver.debugInfo) {
+			System.out.println(this.debugString(true));
+		}
 	}
 	
 	

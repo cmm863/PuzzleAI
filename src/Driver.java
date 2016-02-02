@@ -2,10 +2,17 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 
 public class Driver {
-
+	public static boolean debugInfo;
 	public static void main(String[] args) {
+		// Start time
+		long startTime = System.currentTimeMillis();
+		long endTime, elapsedTime;
+		
 		// The name of the file to open
 		String fileName = args[0];
+		
+		// Debug information
+		debugInfo = Boolean.valueOf(args[1]);
 		
 		// The current line that is referenced
 		String line = null;
@@ -31,26 +38,38 @@ public class Driver {
 				lineCount++;
 			}
 			
+			if(debugInfo) {
 			// Print map
-			System.out.println("Map:");
-			System.out.println(g.debugMap());
-			
-			// Print colors
-			System.out.println("Colors:");
-			System.out.println(g.debugColors());
+				System.out.println("Map:");
+				System.out.println(g.debugMap());
+				
+				// Print colors
+				System.out.println("Colors:");
+				System.out.println(g.debugColors());
+			}
 			
 			// Calculate paths
 			g.calculatePaths();
 			
-			// Print
-			System.out.println("Map:");
-			System.out.println(g.debugMap());
+			if(debugInfo) {
+				// Print
+				System.out.println("Map:");
+				System.out.println(g.debugMap());
+			}
 			
 			// Close BufferedReader
 			bufferedReader.close();
 		} catch(Exception e) {
 			System.out.println(e);
 		}
+		
+		// Calculate time
+		endTime = System.currentTimeMillis();
+		elapsedTime = endTime - startTime;
+		System.out.println(elapsedTime);
+		
+		// Print actions
+		System.out.println(g.getActions());
 	}
 
 }

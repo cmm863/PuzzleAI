@@ -7,15 +7,17 @@ public class Tile {
 	public Tile() {
 		this.p = new Point(0, 0);
 		this.c = 'x';
-		
-		System.out.println(this.debugString(true));
+		if(Driver.debugInfo) {
+			System.out.println(this.debugString(true));
+		}
 	}
 	
 	public Tile(Point p, char c) {
 		this.p = p;
 		this.c = c;
-		
-		System.out.println(this.debugString(true));
+		if(Driver.debugInfo) {
+			System.out.println(this.debugString(true));
+		}
 	}
 	
 	

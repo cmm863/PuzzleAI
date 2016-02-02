@@ -5,6 +5,7 @@ import java.util.Vector;
 public class Game {
 	private int colors;		// Number of colors in game
 	private int n;			// NxN game board
+	private int actions;	// Number of actions for solution
 	private HashMap<Point, Tile> map; // Board
 	private HashMap<Character, Color> colorMap; // Colors
 	
@@ -12,22 +13,28 @@ public class Game {
 		// Load information
 		this.colors = 0;
 		this.n = 0;
+		this.actions = 0;
 		this.map = new HashMap<Point, Tile>();
 		this.colorMap = new HashMap<Character, Color>();
 		
 		// Debug information
-		System.out.println(this.debugString(true));
+		if(Driver.debugInfo) {
+			System.out.println(this.debugString(true));
+		}
 	}
 	
 	public Game(int colors, int n) {
 		// Load information
 		this.colors = colors;
 		this.n = n;
+		this.actions = 0;
 		this.map = new HashMap<Point, Tile>();
 		this.colorMap = new HashMap<Character, Color>();
 		
 		// Debug information
-		System.out.println(this.debugString(true));
+		if(Driver.debugInfo) {
+			System.out.println(this.debugString(true));
+		}
 	}
 	
 	public Game(String fileString) {
@@ -35,11 +42,14 @@ public class Game {
 		String[] info = fileString.split(" ");
 		this.n = Integer.valueOf(info[0]);
 		this.colors = Integer.valueOf(info[1]);
+		this.actions = 0;
 		this.map = new HashMap<Point, Tile>();
 		this.colorMap = new HashMap<Character, Color>();
 		
 		// Debug information
-		System.out.println(this.debugString(true));
+		if(Driver.debugInfo) {
+			System.out.println(this.debugString(true));
+		}
 	}
 	
 	public void loadRow(String fileString, int rowNumber) {
@@ -50,7 +60,6 @@ public class Game {
 		
 		// For each column in the row
 		for(int i = 0; i < columns.length; i++) {
-			System.out.println(columns[i]);
 			p = new Point(i, rowNumber-1);
 			t = new Tile(p, columns[i].charAt(0));
 			
@@ -113,12 +122,24 @@ public class Game {
 	public void calculatePaths() {
 		for(Color c : this.colorMap.values()) {
 			Vector<Point> path = Search.BFTS(this.map, c);
-			System.out.println(c.getDebugCharacter());
-			for(Point p : path) {
-				System.out.println(p.toString());
-				this.map.get(p).setDebugChar(c.getDebugCharacter());
+			if(Driver.debugInfo) {
+				System.out.println(c.getDebugCharacter());
 			}
-			System.out.println();
+			for(Point p : path) {
+				if(Driver.debugInfo) {
+					System.out.println(p.toString());
+				}
+				this.map.get(p).setDebugChar(c.getDebugCharacter());
+				this.actions++; // Counts each node in the path
+			}
+			this.actions--; // Take one off per color for the start
+			if(Driver.debugInfo) {
+				System.out.println();
+			}
 		}
+	}
+	
+	public int getActions() {
+		return this.actions;
 	}
 }
