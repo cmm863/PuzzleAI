@@ -42,6 +42,10 @@ public class Driver {
 			// Calculate paths
 			g.calculatePaths();
 			
+			// Print
+			System.out.println("Map:");
+			System.out.println(g.debugMap());
+			
 			// Close BufferedReader
 			bufferedReader.close();
 		} catch(Exception e) {

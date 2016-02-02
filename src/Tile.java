@@ -35,4 +35,12 @@ public class Tile {
 	public char getDebugChar() {
 		return this.c;
 	}
+	
+	public Point getPoint() {
+		return p;
+	}
+	
+	public void setDebugChar(char c) {
+		this.c = c;
+	}
 }

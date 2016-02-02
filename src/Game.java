@@ -1,5 +1,6 @@
 import java.awt.Point;
 import java.util.HashMap;
+import java.util.Vector;
 
 public class Game {
 	private int colors;		// Number of colors in game
@@ -111,7 +112,13 @@ public class Game {
 	
 	public void calculatePaths() {
 		for(Color c : this.colorMap.values()) {
-			Search.BFTS(this.map, c);
+			Vector<Point> path = Search.BFTS(this.map, c);
+			System.out.println(c.getDebugCharacter());
+			for(Point p : path) {
+				System.out.println(p.toString());
+				this.map.get(p).setDebugChar(c.getDebugCharacter());
+			}
+			System.out.println();
 		}
 	}
 }
