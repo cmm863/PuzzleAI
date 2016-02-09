@@ -7,7 +7,7 @@ public class Game {
 	private int colors;		// Number of colors in game
 	private int n;			// NxN game board
 	private int actions;	// Number of actions for solution
-	private HashMap<Point, Tile> map; // Board
+	public static HashMap<Point, Tile> map; // Board
 	private HashMap<Character, Color> colorMap; // Colors
 	private HashMap<Color, Vector<Point>> paths;
 	
@@ -16,7 +16,7 @@ public class Game {
 		this.colors = 0;
 		this.n = 0;
 		this.actions = 0;
-		this.map = new HashMap<Point, Tile>();
+		Game.map = new HashMap<Point, Tile>();
 		this.colorMap = new HashMap<Character, Color>();
 		this.paths = new HashMap<Color, Vector<Point>>();
 		
@@ -31,7 +31,7 @@ public class Game {
 		this.colors = colors;
 		this.n = n;
 		this.actions = 0;
-		this.map = new HashMap<Point, Tile>();
+		Game.map = new HashMap<Point, Tile>();
 		this.colorMap = new HashMap<Character, Color>();
 		this.paths = new HashMap<Color, Vector<Point>>();
 		
@@ -47,7 +47,7 @@ public class Game {
 		this.n = Integer.valueOf(info[0]);
 		this.colors = Integer.valueOf(info[1]);
 		this.actions = 0;
-		this.map = new HashMap<Point, Tile>();
+		Game.map = new HashMap<Point, Tile>();
 		this.colorMap = new HashMap<Character, Color>();
 		this.paths = new HashMap<Color, Vector<Point>>();
 		
@@ -126,7 +126,7 @@ public class Game {
 	
 	public void calculatePaths() {
 		for(Color c : this.colorMap.values()) {
-			Vector<Point> path = Search.BFTS(this.map, c);
+			Vector<Point> path = Search.IDDFTS(c);
 			Collections.reverse(path);
 			if(Driver.debugInfo) {
 				System.out.println(c.getDebugCharacter());
@@ -135,7 +135,7 @@ public class Game {
 				if(Driver.debugInfo) {
 					System.out.println(p.toString());
 				}
-				this.map.get(p).setDebugChar(c.getDebugCharacter());
+				Game.map.get(p).setDebugChar(c.getDebugCharacter());
 				this.actions++; // Counts each node in the path
 			}
 			if(Driver.debugInfo) {
