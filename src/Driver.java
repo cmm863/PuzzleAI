@@ -8,6 +8,7 @@ import java.io.OutputStreamWriter;
 
 public class Driver {
 	public static boolean debugInfo;
+	public static String heuristic;
 	public static void main(String[] args) {
 		// Start time
 		long startTime = System.currentTimeMillis();
@@ -18,6 +19,16 @@ public class Driver {
 		
 		// Debug information
 		debugInfo = Boolean.valueOf(args[1]);
+		
+		// Read in heuristic
+		if(args.length < 3) {
+			heuristic = "manhattan";
+		} else if(args[2].equalsIgnoreCase("euclidean")) {
+			heuristic = "euclidean";
+		} else {
+			System.out.println("Invalid heuristic.");
+			return;
+		}
 		
 		// The current line that is referenced
 		String line = null;
@@ -69,7 +80,7 @@ public class Driver {
 		}
 		
 		// Write to file
-		String outputFileName = args[0].substring(0, args[0].length() - 4) + "_solution.txt";
+		String outputFileName = args[0].substring(0, args[0].length() - 4) + "_" + heuristic + "_solution.txt";
 		File fout = new File(outputFileName);
 		FileOutputStream fos = null;
 		try {

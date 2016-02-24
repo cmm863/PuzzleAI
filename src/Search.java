@@ -122,7 +122,11 @@ public class Search {
 		
 		// Initial scores for the start
 		gScore.put(c.getStart(), 0);
-		fScore.put(c.getStart(), euclidianDistance(c.getStart(), c.getEnd()));
+		if(Driver.heuristic == "manhattan") {
+			fScore.put(c.getStart(), manhattanDistance(c.getStart(), c.getEnd()));
+		} else if (Driver.heuristic == "euclidean") {
+			fScore.put(c.getStart(), euclideanDistance(c.getStart(), c.getEnd()));
+		}
 		
 		// Add start
 		openSet.add(new BFNode(c.getStart()));
@@ -167,7 +171,11 @@ public class Search {
 				
 				cameFrom.put(temp.getPoint(), current.getPoint());
 				gScore.put(temp.getPoint(), tenativeGScore);
-				fScore.put(temp.getPoint(), gScore.get(temp.getPoint()) + euclidianDistance(temp.getPoint(), c.getEnd()));
+				if(Driver.heuristic == "manhattan") {
+					fScore.put(temp.getPoint(), gScore.get(temp.getPoint()) + manhattanDistance(temp.getPoint(), c.getEnd()));
+				} else if (Driver.heuristic == "euclidean") {
+					fScore.put(temp.getPoint(), gScore.get(temp.getPoint()) + euclideanDistance(temp.getPoint(), c.getEnd()));
+				}
 				temp.setG(gScore.get(temp.getPoint()));
 				temp.setF(fScore.get(temp.getPoint()));
 				
@@ -209,7 +217,7 @@ public class Search {
 		return (int) (Math.abs(a.getX() - b.getX()) + Math.abs(a.getY() - b.getY()));
 	}
 	
-	private static int euclidianDistance(Point a, Point b) {
+	private static int euclideanDistance(Point a, Point b) {
 		double dx = Math.abs(a.getX() - b.getX());
 		double dy = Math.abs(a.getY() - b.getY());
 		return (int) Math.sqrt(dx * dx + dy * dy);
