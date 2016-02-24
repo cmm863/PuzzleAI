@@ -126,7 +126,7 @@ public class Game {
 	
 	public void calculatePaths() {
 		for(Color c : this.colorMap.values()) {
-			Vector<Point> path = Search.IDDFTS(c);
+			Vector<Point> path = Search.AStar(c);
 			Collections.reverse(path);
 			if(Driver.debugInfo) {
 				System.out.println(c.getDebugCharacter());
